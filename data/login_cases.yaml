@@ -1,0 +1,49 @@
+- case_id: "LOGIN_001"
+  title: "正常账号密码登录成功"
+  payload:
+    username: "tester"
+    password: "Password123"
+  expected:
+    status_code: 200
+    biz_code: 0
+    has_token: true
+
+- case_id: "LOGIN_002"
+  title: "密码错误返回401"
+  payload:
+    username: "tester"
+    password: "WrongPassword"
+  expected:
+    status_code: 401
+    biz_code: 40100
+    has_token: false
+
+- case_id: "LOGIN_003"
+  title: "用户名为空返回400"
+  payload:
+    username: ""
+    password: "Password123"
+  expected:
+    status_code: 400
+    biz_code: 40001
+    has_token: false
+
+- case_id: "LOGIN_004"
+  title: "账号被冻结返回403"
+  payload:
+    username: "locked_user"
+    password: "Password123"
+  expected:
+    status_code: 403
+    biz_code: 40301
+    has_token: false
+
+- case_id: "LOGIN_005"
+  title: "密码为空返回400"
+  payload:
+    username: "tester"
+    password: ""
+  expected:
+    status_code: 400
+    biz_code: 40001
+    has_token: false

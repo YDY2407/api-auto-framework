@@ -1,0 +1,16 @@
+# Python 缓存与虚拟环境
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Pytest 缓存与运行生成的报告
+.pytest_cache/
+reports/
+
+# 本地靶场运行生成的 SQLite 数据文件
+mock_server/shop.db
+
+# IDE 配置
+.vscode/
+.idea/

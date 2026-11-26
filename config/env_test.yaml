@@ -1,0 +1,8 @@
+env_name: "test"
+base_url: "http://127.0.0.1:8899"
+timeout: 5
+db_path: "mock_server/shop.db"
+
+test_account:
+  username: "tester"
+  password: "Password123"
