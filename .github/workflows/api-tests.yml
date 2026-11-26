@@ -65,10 +65,14 @@ jobs:
           retention-days: 14
 
       - name: 6. 失败时推送飞书/钉钉 Webhook 告警（配置 Secrets 后自动生效）
-        if: failure() && secrets.WEBHOOK_URL != ''
+        if: failure()
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
-          curl -X POST "$WEBHOOK_URL" \
-            -H 'Content-Type: application/json' \
-            -d '{"msg_type":"text","content":{"text":"[自动化测试告警] 接口回归失败！请查看 GitHub Actions: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}}'
+          if [ -n "$WEBHOOK_URL" ]; then
+            curl -X POST "$WEBHOOK_URL" \
+              -H 'Content-Type: application/json' \
+              -d '{"msg_type":"text","content":{"text":"[自动化测试告警] 接口回归失败！请查看 GitHub Actions: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}}'
+          else
+            echo "未配置 WEBHOOK_URL Secret，跳过告警推送。"
+          fi
